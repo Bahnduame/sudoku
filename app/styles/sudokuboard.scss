@@ -1,0 +1,142 @@
+.sudoku{
+
+  width: 450px;
+  margin: 50px auto 0 auto;
+  background-color: #eee;
+  border-radius: 6px;
+  padding: 60px;
+
+  > input {
+    float: left;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    border: 1px solid #aaa;
+    box-sizing:border-box;
+    color:gray;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  /* Sodoku OK! */
+  @for $i from 1 through 9{
+      > input[value="#{$i}"]{
+          color:green;
+      }
+  }
+
+  /*Every third*/
+  > input:nth-child(3n+3){
+    border-right-width:2px;
+  }
+
+  /*3x3 delimiter vertical*/
+  > input:nth-child(3n+4){
+    border-left-width:2px;
+  }
+
+  /* Left most row*/
+  > input:nth-child(9n+1){
+    border-left-width:3px;
+  }
+
+  /* Right most row*/
+  > input:nth-child(9n){
+    border-right-width:3px;
+  }
+
+  /* First horizontal delimiter*/
+  > input:nth-child(n+19):nth-child(-n+27){
+    border-bottom-width:2px;
+  }
+  > input:nth-child(n+28):nth-child(-n+36){
+    border-top-width:2px;
+  }
+
+  /* Second horizontal delimiter*/
+  > input:nth-child(n+46):nth-child(-n+54){
+    border-bottom-width:2px;
+  }
+  > input:nth-child(n+55):nth-child(-n+63){
+    border-top-width:2px;
+  }
+
+  /* Top border */
+  > input:nth-child(-n+9){
+    border-top-width:3px;
+  }
+
+  /* Soduku rule first row*/
+  @for $i from 1 through 9{
+
+      /* Vertical check*/
+      > input:nth-child(-n+9)[value="#{$i}"] ~ input:nth-child(-n+9)[value="#{$i}"]{
+          color:red;
+      }
+
+      > input:nth-child(n+73)[value="#{$i}"] ~ input:nth-child(n+73)[value="#{$i}"]{
+          color:red;
+      }
+
+      /* Horizontal check*/
+      @for $b from 1 through 9{
+        > input:nth-child(9n+#{$i})[value="#{$b}"] ~ input:nth-child(9n+#{$i})[value="#{$b}"] {
+            color:red;
+        }
+      }
+  }
+  /* 2 -> 8 row*/
+  @for $i from 1 through 8{
+      $start: $i*10 - ($i - 1);
+      $end  : $start+8;
+      @for $b from 1 through 9{
+        > input:nth-child(n+#{$start}):nth-child(-n+#{$end})[value="#{$b}"] ~
+          input:nth-child(n+#{$start}):nth-child(-n+#{$end})[value="#{$b}"]{
+            color:red;
+        }
+      }
+  }
+
+  /* Quadrant check*/
+  @for $i from 1 through 9{
+      /* Horizontal check*/
+      @for $b from 1 through 9{
+        > input.q#{$i}[value="#{$b}"] ~ input.q#{$i}[value="#{$b}"]{
+          color:red;
+        }
+      }
+  }
+
+
+  > input:nth-child(n+73) {
+    border-bottom-width:3px;
+  }
+}
+
+
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+
+body{
+  font-family:Helvetica, sans-serif;
+
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

@@ -1,12 +1,13 @@
 .sudoku{
 
   width: 450px;
-  margin: 50px auto 0 auto;
+  margin: 15px auto 15px auto;
   background-color: #eee;
   border-radius: 6px;
   padding: 60px;
 
   > input {
+    font-family: 'Josefin Sans', sans-serif;
     float: left;
     text-align: center;
     width: 50px;
@@ -19,13 +20,6 @@
     &:focus {
       outline: none;
     }
-  }
-
-  /* Sodoku OK! */
-  @for $i from 1 through 9{
-      > input[value="#{$i}"]{
-          color:green;
-      }
   }
 
   /*Every third*/
@@ -69,48 +63,6 @@
     border-top-width:3px;
   }
 
-  /* Soduku rule first row*/
-  @for $i from 1 through 9{
-
-      /* Vertical check*/
-      > input:nth-child(-n+9)[value="#{$i}"] ~ input:nth-child(-n+9)[value="#{$i}"]{
-          color:red;
-      }
-
-      > input:nth-child(n+73)[value="#{$i}"] ~ input:nth-child(n+73)[value="#{$i}"]{
-          color:red;
-      }
-
-      /* Horizontal check*/
-      @for $b from 1 through 9{
-        > input:nth-child(9n+#{$i})[value="#{$b}"] ~ input:nth-child(9n+#{$i})[value="#{$b}"] {
-            color:red;
-        }
-      }
-  }
-  /* 2 -> 8 row*/
-  @for $i from 1 through 8{
-      $start: $i*10 - ($i - 1);
-      $end  : $start+8;
-      @for $b from 1 through 9{
-        > input:nth-child(n+#{$start}):nth-child(-n+#{$end})[value="#{$b}"] ~
-          input:nth-child(n+#{$start}):nth-child(-n+#{$end})[value="#{$b}"]{
-            color:red;
-        }
-      }
-  }
-
-  /* Quadrant check*/
-  @for $i from 1 through 9{
-      /* Horizontal check*/
-      @for $b from 1 through 9{
-        > input.q#{$i}[value="#{$b}"] ~ input.q#{$i}[value="#{$b}"]{
-          color:red;
-        }
-      }
-  }
-
-
   > input:nth-child(n+73) {
     border-bottom-width:3px;
   }
@@ -125,18 +77,4 @@
 
 .cf:after {
     clear: both;
-}
-
-
-body{
-  font-family:Helvetica, sans-serif;
-
-}
-
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }

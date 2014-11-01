@@ -5,12 +5,6 @@
 //imports
 @import "base";
 @import "sudokuboard";
-body {
-  background: #fafafa;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #333;
-}
-
 .hero-unit {
   margin: 50px auto 0 auto;
   width: 300px;
@@ -35,6 +29,8 @@ body {
 }
 
 .header-container{
+  font-family: 'Josefin Sans', sans-serif;
   text-align: center;
+  margin-top:50px;
+  color:#eee
 }
-

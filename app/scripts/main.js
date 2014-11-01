@@ -23,16 +23,52 @@ $( document ).ready(function(){
   ];
 
 
-  var childNum = 0;
-  for(var x=0, len=board1.length ; x<len ; x++){
-    for(var y=0; y<len; y++){
-        if(board1[y][x] !== 0){
-            childNum=(y*9)+x+1;
-            $(".sudoku :nth-child("+childNum+")")
-                .val(board1[y][x])
-                .prop('disabled', true);
+    var childNum,numWrong,curChild;
+
+    var resetBoard = function(){
+        childNum = 0;
+        for(var x=0, len=board1.length ; x<len ; x++){
+            for(var y=0; y<len; y++){
+                childNum=(y*9)+x+1;
+                curChild = $(".sudoku :nth-child("+childNum+")")
+                curChild.removeClass( "incorrect" )
+                if(board1[y][x] !== 0){
+                    curChild
+                        .val(board1[y][x])
+                        .prop('disabled', true);
+                }else{
+                    curChild
+                        .val('')
+                        .prop('disabled', false);
+                }
+            }
         }
     }
-  }
+
+    var checkAnswer = function(){
+        childNum = 0;
+        numWrong = 0;
+        for(var x=0, len=board1.length ; x<len ; x++){
+            for(var y=0; y<len; y++){
+                childNum=(y*9)+x+1;
+                curChild = $(".sudoku :nth-child("+childNum+")");
+                curChild.prop('disabled', true);
+                if(curChild.val() != board1_solved[y][x]){
+                    numWrong++;
+                    curChild
+                        .addClass( "incorrect" );
+                }
+            }
+        }
+    }
+
+    resetBoard();
+    $( "#restartBtn" ).on('click',function() {
+        resetBoard();
+    });
+
+    $( "#checkBtn" ).click(function() {
+        checkAnswer();
+    });
 
 });

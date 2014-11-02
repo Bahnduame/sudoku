@@ -80,9 +80,10 @@
 }
 
 .incorrect{
-  background-color: #FF1800;
+  //background-color: #FF1800;
+  color: #FF1800 !important;
 }
-
-.correct{
-  background-color:#FFB000;
+.given{
+  // background-color:#1CE548;
+  color:#000 !important;
 }

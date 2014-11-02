@@ -41,11 +41,15 @@ $( document ).ready(function(){
 
     //reset item function
     var resetItem = function(elem,checkval){
-        elem.removeClass( "incorrect" )
+        elem
+            .removeClass( "incorrect" )
+            .removeClass( "correct" )
+            .removeClass( "given" );
         if(checkval !== 0){
             elem
                 .val(checkval)
-                .prop('disabled', true);
+                .prop('disabled', true)
+                .addClass("given");
         }else{
             elem
                 .val('')
@@ -58,8 +62,6 @@ $( document ).ready(function(){
         elem.prop('disabled', true);
         if(elem.val() != board1_solved[j][i]){
             elem.addClass( "incorrect" );
-        }else if(board1[j][i] === 0 && elem.val() == board1_solved[j][i]){
-            elem.addClass( "correct" );
         }
     }
 

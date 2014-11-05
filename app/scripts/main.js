@@ -43,7 +43,6 @@ $( document ).ready(function(){
     var resetItem = function(elem,checkval){
         elem
             .removeClass( "incorrect" )
-            .removeClass( "correct" )
             .removeClass( "given" );
         if(checkval !== 0){
             elem
